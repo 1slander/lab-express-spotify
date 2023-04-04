@@ -66,12 +66,12 @@ app.get("/albums/:artistId", (req, res, next) => {
 
 app.get("/tracks/:albumId", (req, res) => {
   const tracksId = req.params.albumId;
-  //console.log(tracksId);
+  console.log(tracksId);
   spotifyApi
     .getAlbumTracks(tracksId)
     .then((data) => {
-      console.log("Albums tracks", data.body);
-      console.log("This track", data.body.items[0].preview_url);
+      //console.log("Albums tracks", data.body);
+      //console.log("This track", data.body.items[0].preview_url);
       res.render("tracks", { tracks: data.body.items });
     })
     .catch((err) =>
