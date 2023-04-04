@@ -29,37 +29,54 @@ spotifyApi
 // Our routes go here:
 
 app.get("/", (req, res) => {
-  res.render('home');
+  res.render("home");
 });
 
-app.get("/artist-search",(req,res)=>{
+app.get("/artist-search", (req, res) => {
   console.log(`This artist: ${req.query.artist}`);
   spotifyApi
-  .searchArtists(req.query.artist)
-  .then(data => {
-    //console.log('The received data from the API: ', data.body);
-    const artists=data.body.artists.items;
-    //console.log(`This data: ${artists}`)
-    // ----> 'HERE'S WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
-    res.render('artist-search-results',{artists: data.body.artists.items});
-    //console.log(data.body.artists.items[0])
-  })
-  .catch(err => console.log('The error while searching artists occurred: ', err));
-})
+    .searchArtists(req.query.artist)
+    .then((data) => {
+      //console.log("The received data from the API: ", data.body);
+      const artists = data.body.artists.items;
+      //console.log(`This data: ${artists}`)
+      // ----> 'HERE'S WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
+      res.render("artist-search-results", { artists: data.body.artists.items });
+      //console.log(data.body.artists.items[0])
+    })
+    .catch((err) =>
+      console.log("The error while searching artists occurred: ", err)
+    );
+});
 
-app.get('/albums/:artistId', (req, res, next) => {
-  
-   const artistId=req.params.artistId
-    //console.log(artistId)
+app.get("/albums/:artistId", (req, res, next) => {
+  const artistId = req.params.artistId;
+  //console.log(artistId)
   spotifyApi
-  .getArtistAlbums(artistId)
-  .then(data => {
-    //console.log('Data',data)
-    //console.log('Artist albums', data.body);
-    res.render('albums',{albums: data.body.items});
-    
-  })
-  .catch(err => console.log('The error while searching albums occurred: ',err));
+    .getArtistAlbums(artistId)
+    .then((data) => {
+      //console.log('Data',data)
+      //console.log("Artist albums", data.body);
+      res.render("albums", { albums: data.body.items });
+    })
+    .catch((err) =>
+      console.log("The error while searching albums occurred: ", err)
+    );
+});
+
+app.get("/tracks/:albumId", (req, res) => {
+  const tracksId = req.params.albumId;
+  //console.log(tracksId);
+  spotifyApi
+    .getAlbumTracks(tracksId)
+    .then((data) => {
+      console.log("Albums tracks", data.body);
+      console.log("This track", data.body.items[0].preview_url);
+      res.render("tracks", { tracks: data.body.items });
+    })
+    .catch((err) =>
+      console.log("The error while searching tracks occurred: ", err)
+    );
 });
 
 app.listen(3000, () =>
