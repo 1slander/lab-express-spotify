@@ -1,7 +1,21 @@
-<h1>Titles</h1>
-{{#each tracks}}
+<table>
+  <tr class="head">
+    <th>Title</th>
+    <th>Track</th>
+  </tr>
+
+{{#each items}}
+  <tr class="list">
+  <th>
   <h2>{{this.track_number}}. {{this.name}}</h2>
+  </th> 
+  <th>
   <audio controls>
     <source src="{{this.preview_url}}" />
   </audio>
+
+  </th>
+
+  </tr>
 {{/each}}
+</table>

@@ -78,7 +78,9 @@ app.get("/tracks/:albumId", (req, res) => {
     .then((data) => {
       //console.log("Albums tracks", data.body);
       //console.log("This track", data.body.items[0].preview_url);
-      res.render("tracks", { tracks: data.body.items });
+      data.body.styles= "tracks.css";
+      // res.render("tracks", { tracks: data.body.items });
+      res.render("tracks", data.body)
     })
     .catch((err) =>
       console.log("The error while searching tracks occurred: ", err)
