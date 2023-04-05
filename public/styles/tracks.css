@@ -8,13 +8,33 @@ body {
  margin: 20px;
 
 }
+table{
+ border-collapse: collapse;
+ min-width: 60vw;
+ margin: 20px;
+ display: flex;
+}
+tr{
+display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
 
 .head{
   background-color: rgb(74, 72, 72);
-  color: white;
+  color: lightgray;
   font-size: 2.2rem;
   padding: 10px;
+  padding: 15px;
 }
 .list{
+ background-color: rgb(220, 218, 218);
+ margin-bottom: 5px;
+ padding: 5px;
 
+}
+
+.list  h2{
+ font-size: 2rem;
+ font-weight: 400;
 }
