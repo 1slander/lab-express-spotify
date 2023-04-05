@@ -38,9 +38,11 @@ app.get("/artist-search", (req, res) => {
     .searchArtists(req.query.artist)
     .then((data) => {
       //console.log("The received data from the API: ", data.body);
-      const artists = data.body.artists.items;
+      data.body.artists.styles = "artist.css"
+      const artists = data.body.artists;
       //console.log(`This data: ${artists}`)
       // ----> 'HERE'S WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
+      
       res.render("artist-search-results", { artists: data.body.artists.items });
       //console.log(data.body.artists.items[0])
     })
