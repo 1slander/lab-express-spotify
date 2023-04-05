@@ -38,12 +38,14 @@ app.get("/artist-search", (req, res) => {
     .searchArtists(req.query.artist)
     .then((data) => {
       //console.log("The received data from the API: ", data.body);
+      //Add styles to the object and pass my css
       data.body.artists.styles = "artist.css"
       const artists = data.body.artists;
       //console.log(`This data: ${artists}`)
       // ----> 'HERE'S WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
-      
-      res.render("artist-search-results", { artists: data.body.artists.items });
+
+      res.render("artist-search-results", data.body.artists);
+      // res.render("artist-search-results", { artists: data.body.artists.items });
       //console.log(data.body.artists.items[0])
     })
     .catch((err) =>
@@ -59,7 +61,9 @@ app.get("/albums/:artistId", (req, res, next) => {
     .then((data) => {
       //console.log('Data',data)
       //console.log("Artist albums", data.body);
-      res.render("albums", { albums: data.body.items });
+      data.body.styles = "albums.css"
+      // res.render("albums", { albums: data.body.items });
+      res.render("albums", data.body);
     })
     .catch((err) =>
       console.log("The error while searching albums occurred: ", err)
